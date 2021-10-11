@@ -27,7 +27,7 @@ def download(message):
     """
     if  (str(message.from_user.id) in auth_users) and (validators.url(message.text)) :
         bot.reply_to(message, 'Url is OK')
-        os.system("echo Hello from the other side!")
+        os.system("cd ~/youtube && youtube-dl --extract-audio --audio-format mp3 -c '" + message.text + "'" )
     else:
         bot.reply_to(message, 'Error')
 
