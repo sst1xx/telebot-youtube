@@ -2,6 +2,7 @@
 """youtube bot dl"""
 
 import os
+import subprocess
 import telebot
 import validators
 from dotenv import load_dotenv
@@ -27,8 +28,15 @@ def download(message):
     """
     if  (str(message.from_user.id) in auth_users) and (validators.url(message.text)) :
         bot.reply_to(message, 'Url is OK')
-        os.system("cd ~/youtube && youtube-dl --extract-audio --audio-format mp3 -c '" + message.text + "'" )
+
+        try:
+            subprocess.run("cd ~/youtube && youtube-dl --extract-audio --audio-format mp3 -c '" + \
+            message.text + "'", shell=True, check=True, timeout=15, capture_output=True)
+        except subprocess.CalledProcessError as e:
+            # print(e)  # Output: Command 'exit 1' returned non-zero exit status 1.
+            bot.reply_to(message, message.text + "could not be downloaded. Try to retry")
+
     else:
-        bot.reply_to(message, 'Error')
+        bot.reply_to(message, 'URL is not correct or Anonymous user')
 
 bot.infinity_polling()
