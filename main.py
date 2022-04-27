@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """youtube bot dl"""
 
+from __future__ import unicode_literals
+from dotenv import load_dotenv
+
 import os
 import telebot
 import validators
-from dotenv import load_dotenv
+import youtube_dl
 
 
 load_dotenv()
@@ -25,9 +28,23 @@ def download(message):
     """
     high level support for doing this and that.
     """
+
     if  (str(message.from_user.id) in auth_users) and (validators.url(message.text)) :
         bot.reply_to(message, 'Url is OK')
-        os.system("cd ~/youtube && youtube-dl --extract-audio --audio-format mp3 -c '" + message.text + "'" )
+        ydl_opts = {
+        'format': 'bestaudio/best',
+        'quiet': True,
+        'outtmpl': '/home/syncthing/youtube/%(title)s.%(ext)s',
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '128',
+        }],
+        }
+
+        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([message.text])
+
     else:
         bot.reply_to(message, 'Error')
 
