@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 token = os.getenv('AUTH_TOKEN')
 auth_users = os.getenv('AUTH_USERS').split()
-
+print ('TeleBot started')
 bot = telebot.TeleBot(token)
 
 @bot.message_handler(commands=['start', 'help'])
@@ -18,7 +18,7 @@ def send_welcome(message):
     """
     high level support for doing this and that.
     """
-    bot.reply_to(message, "Howdy, how are you doing?")
+    bot.reply_to(message, "Send to me youtubr link for downloading")
 
 @bot.message_handler(func=lambda message: True)
 def download(message):
