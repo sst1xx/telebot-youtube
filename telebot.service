@@ -1,0 +1,18 @@
+[Unit]
+Description=Telebot YouTube downloader
+Documentation=https://docs.python.org/3.7
+After=network.target
+
+[Service]
+Type=simple
+User=syncthing
+Group=syncthing
+WorkingDirectory=/home/syncthing/telebot-youtube
+Environment="VIRTUAL_ENV=/home/syncthing/venv"
+Environment="PATH=$VIRTUAL_ENV/bin:/home/syncthing/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
+#ExecStartPre=/usr/bin/bash /home/syncthing/.bashrc
+ExecStart=/home/syncthing/venv/bin/python /home/syncthing/telebot-youtube/main.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
