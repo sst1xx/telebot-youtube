@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 import os
 import telebot
 import validators
-import youtube_dl
+import yt_dlp
 
 
 load_dotenv()
@@ -42,7 +42,7 @@ def download(message):
         }],
         }
 
-        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([message.text])
 
     else:
