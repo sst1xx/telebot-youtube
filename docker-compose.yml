@@ -1,3 +1,4 @@
+version: "3.3"
 services:
   youtube_bot:
     build:
@@ -7,7 +8,6 @@ services:
     env_file:
       - .env
     container_name: youtube_bot
-
-
-
-    
+    restart: always
+    volumes:
+      - ${HOME}/youtube:/app/youtube
