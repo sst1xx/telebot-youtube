@@ -21,7 +21,7 @@ def send_welcome(message):
     """
     high level support for doing this and that.
     """
-    bot.reply_to(message, "Send to me youtubr link for downloading")
+    bot.reply_to(message, "Send to me youtube link for downloading")
 
 @bot.message_handler(func=lambda message: True)
 def download(message):
@@ -34,7 +34,7 @@ def download(message):
         ydl_opts = {
         'format': 'bestaudio/best',
         'quiet': True,
-        'outtmpl': '/home/syncthing/youtube/%(title)s.%(ext)s',
+        'outtmpl': 'youtube/%(title)s.%(ext)s',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
