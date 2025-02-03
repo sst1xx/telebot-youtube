@@ -1,0 +1,13 @@
+services:
+  youtube_bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: vitalplay/youtube_bot:latest
+    env_file:
+      - .env
+    container_name: youtube_bot
+
+
+
+    
