@@ -39,11 +39,13 @@ def process_download_queue():
                 'postprocessor_args': [
                     '-ac', '1',      # моно
                     '-ar', '44100',  # 44.1 kHz
-                    '-preset', 'fast'
+                    '-preset', 'fast',
+                    '-id3v2_version', '4',
+                    '-write_id3v1', '1'
                 ],
                 # по желанию можно убрать лишние шаги:
                 'add_metadata': True,
-                'embed_thumbnail': False,
+                'embed_thumbnail': True,
             }
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 ydl.download([url])
