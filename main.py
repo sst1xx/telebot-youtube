@@ -40,9 +40,10 @@ def process_download_queue():
                     '-ac', '1',      # моно
                     '-ar', '44100',  # 44.1 kHz
                     '-preset', 'fast',
-                    '-id3v2_version', '4',
-                    '-write_id3v1', '1'
+                    '-id3v2_version', '4',    # add id3v2 version flag
+                    '-write_id3v1', '1',      # add write id3v1 flag
                 ],
+                'parse_metadata': ['title:(?P<title>.*)\\.mp3'],  # add parse-metadata flag
                 # по желанию можно убрать лишние шаги:
                 'add_metadata': True,
                 'embed_thumbnail': True,
