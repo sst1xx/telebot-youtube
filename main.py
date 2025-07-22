@@ -26,6 +26,7 @@ def process_download_queue():
             bot.send_message(chat_id, "Starting download...")
             ydl_opts = {
                 'format': 'bestaudio/best',
+                'addmetadata': True,
                 'quiet': True,
                 'outtmpl': 'youtube/%(title)s.%(ext)s',
                 'postprocessors': [{
