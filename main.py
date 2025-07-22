@@ -30,10 +30,20 @@ def process_download_queue():
                 'format': 'bestaudio/best',
                 'outtmpl': 'youtube/%(title)s.%(ext)s',
                 'postprocessors': [
-                    {'key': 'FFmpegExtractAudio', 'preferredcodec': 'mp3', 'preferredquality': '64K'},
-                    {'key': 'EmbedThumbnail'},
-                    {'key': 'FFmpegMetadata'},
+                    {
+                        'key': 'FFmpegExtractAudio',
+                        'preferredcodec': 'mp3',
+                        'preferredquality': '128',  # 128 kbps CBR
+                    },
                 ],
+                'postprocessor_args': [
+                    '-ac', '1',      # моно
+                    '-ar', '44100',  # 44.1 kHz
+                    '-preset', 'fast'
+                ],
+                # по желанию можно убрать лишние шаги:
+                'add_metadata': True,
+                'embed_thumbnail': False,
             }
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 ydl.download([url])
