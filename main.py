@@ -25,15 +25,15 @@ def process_download_queue():
         try:
             bot.send_message(chat_id, "Starting download...")
             ydl_opts = {
-                'format': 'bestaudio/best',
-                'addmetadata': True,
                 'quiet': True,
+                'no_warnings': True,
+                'format': 'bestaudio/best',
                 'outtmpl': 'youtube/%(title)s.%(ext)s',
-                'postprocessors': [{
-                    'key': 'FFmpegExtractAudio',
-                    'preferredcodec': 'mp3',
-                    'preferredquality': '128',
-                }],
+                'postprocessors': [
+                    {'key': 'FFmpegExtractAudio', 'preferredcodec': 'mp3', 'preferredquality': '64K'},
+                    {'key': 'EmbedThumbnail'},
+                    {'key': 'FFmpegMetadata'},
+                ],
             }
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 ydl.download([url])
